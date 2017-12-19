@@ -1,10 +1,10 @@
 % Set parameters for testing
-n = 64;
+n = 512;
 tau = 1;
 numPoints = 1000;
 isFloat = true;
-isGPU = false;
-maxIter = 12;
+isGPU = true;
+maxIter = 10;
 runIter = 10;
 
 fprintf('Experiment:\n')
@@ -85,7 +85,7 @@ if isGPU
    sqrtA_svd = double(gather(sqrtA_svd));
    sqrtA_db = double(gather(sqrtA_db));
    sqrtA_ns = double(gather(sqrtA_ns));
-   dlda_mb = double(gather(dlda_md));
+   dlda_mb = double(gather(dlda_mb));
    dlda_svd = double(gather(dlda_svd));
    dlda_ns = double(gather(dlda_ns));
 end

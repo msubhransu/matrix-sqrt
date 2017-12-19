@@ -41,8 +41,7 @@ function dldx = matrix_backprop(X, U, D, dldy)
 
 diagS = diag(D);
 ind = diagS > dim*eps(max(diagS));
-Dmin = sum(ind);
-
+Dmin = gather(sum(ind));
 D = D(ind,ind); U = U(:,ind);
             
 dldU = 2.*dldy*U*diag(sqrt(diag(D)));
