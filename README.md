@@ -5,7 +5,7 @@
 
 This repository contains Python and Matlab code for computing the matrix square root (ZZ = A) and its gradient using various techniques on the GPU. For the forward computation (the square root of a matrix), SVD and iterative methods are implemented. For the backward computation (the gradient of the square root) matrix backprop, Lyapunov solver using SVD, autograd via the forward iterative method, and Lyapunov solver using iterative methods are implemented. 
 
-These implementations offer different numerical accuracy, memory overhead, and speed tradeoffs. See the run for the python code below as an example. In general the batch-mode versions of the iterative forward and backward methods are an order of magnitude faster than SVD-based methods.
+These implementations offer different numerical accuracy, memory overhead, and speed tradeoffs. See the output of the  python code below as an example. In general the batch-mode versions of the iterative forward and backward methods are an order of magnitude faster than SVD-based methods.
 We used these methods in our "improved bilinear pooling" paper. Please cite this if you use this code:
 
 	@inproceedings{lin17improved,
@@ -14,13 +14,13 @@ We used these methods in our "improved bilinear pooling" paper. Please cite this
 		title = {Improved Bilinear Pooling with CNNs},
 		year = {2017}}
 
-Take a look at the BMVC paper and the main git repo for the project for details on the effect of the number of iterations on the classification accuracy on various fine-grained recognition benchmarks. 
+Take a look at the BMVC paper and the main git repo for details on how these functions are used to improve the classification accuracy on various fine-grained recognition benchmarks. 
 
 * Bilinear CNN project page: [http://vis-www.cs.umass.edu/bcnn](http://vis-www.cs.umass.edu/bcnn)
-* Main git repository [https://bitbucket.org/tsungyu/bcnn.git](https://bitbucket.org/tsungyu/bcnn.git)
+* Main git repository: [https://bitbucket.org/tsungyu/bcnn.git](https://bitbucket.org/tsungyu/bcnn.git)
 
 #### Python code
-The Python code based on PyTorch. Supply --cuda option to run on a GPU. The following is the output on a Tesla K40 GPU.
+The Python code is based on PyTorch. Supply --cuda option to run on a GPU. The following is the output on a Tesla K40 GPU.
 
 **$ python matrix_sqrt.py --cuda** 
 
