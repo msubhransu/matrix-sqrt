@@ -1,6 +1,5 @@
 ## Matrix square root and its gradient
 
-**Authors: Tsung-Yu Lin, Subhransu Maji** 
 
 ### Overview
 
@@ -21,7 +20,7 @@ Take a look at the BMVC paper and the main git repo for the project for details 
 * Main git repository [https://bitbucket.org/tsungyu/bcnn.git](https://bitbucket.org/tsungyu/bcnn.git)
 
 #### Python code
-Python code based on PyTorch. Supply --cuda option to run on a GPU. The following is the output on a Tesla K40 GPU.
+The Python code based on PyTorch. Supply --cuda option to run on a GPU. The following is the output on a Tesla K40 GPU.
 
 **$ python matrix_sqrt.py --cuda** 
 
@@ -41,7 +40,7 @@ Python code based on PyTorch. Supply --cuda option to run on a GPU. The followin
 	  >> speedup over SVD: 82.7x
 
 
-The speedup over the SVD-based method is smaller on CPU as seen below:
+The speedup over the SVD-based method is smaller on the CPU as seen below:
 
 **$ python matrix_sqrt.py**
 
