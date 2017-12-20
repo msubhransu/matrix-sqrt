@@ -1,6 +1,6 @@
 ## Matrix square root and its gradient
 
-** Authors: Tsung-Yu Lin, Subhransu Maji ** 
+**Authors: Tsung-Yu Lin, Subhransu Maji** 
 
 ### Overview
 
@@ -23,7 +23,7 @@ Take a look at the BMVC paper and the main git repo for the project for details 
 #### Python code
 Python code based on PyTorch. Supply --cuda option to run on a GPU. The following is the output on a Tesla K40 GPU.
 
-** $ python matrix_sqrt.py --cuda ** 
+**$ python matrix_sqrt.py --cuda** 
 
 	Creating batch 128, dim 64, pts 1000, tau 1.000000, dtype <class 'torch.cuda.FloatTensor'>
 	Singular Value Decomposition (SVD):
@@ -43,7 +43,7 @@ Python code based on PyTorch. Supply --cuda option to run on a GPU. The followin
 
 The speedup over the SVD-based method is smaller on CPU as seen below:
 
-** $ python matrix_sqrt.py **
+**$ python matrix_sqrt.py**
 
 	Creating batch 128, dim 64, pts 1000, tau 1.000000, dtype <class 'torch.FloatTensor'>
 	Singular Value Decomposition (SVD):
@@ -64,7 +64,7 @@ The speedup over the SVD-based method is smaller on CPU as seen below:
 
 The Matlab code does not support batch-mode matrix multiplication hence the speedups are smaller over the PyTorch version. It also does not include the autograd version for computing the gradients.
 
-** $ matrix_sqrt **
+**$ matrix_sqrt**
 
 	Experiment:
 	>>>> n 512, tau 1.0, numPoints 1000, float 1, gpu 1, maxIter 10, runIter 10
