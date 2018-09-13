@@ -107,7 +107,7 @@ def create_symm_matrix(batchSize, dim, numPts, tau, dtype):
         pts = np.random.randn(numPts, dim).astype(np.float32)
         sA = np.dot(pts.T, pts)/numPts + tau*np.eye(dim).astype(np.float32);
         A[i,:,:] = torch.from_numpy(sA);
-    print 'Creating batch %d, dim %d, pts %d, tau %f, dtype %s' %(batchSize, dim, numPts, tau, dtype)
+    print('Creating batch %d, dim %d, pts %d, tau %f, dtype %s' %(batchSize, dim, numPts, tau, dtype))
     return A
 
 # Command line arguments
@@ -137,30 +137,30 @@ dldz = 0.5*(dldz + dldz.transpose(1,2));
 
 # Forward + backward with SVD
 # Time: O(n^3), Space: O(n^3)
-print 'Singular Value Decomposition (SVD):'
+print('Singular Value Decomposition (SVD):')
 start=tm.time()
 svd_sA, svd_grad, svd_error = sqrt_svd_lyap(A, -dldz, dtype=d)
 end=tm.time()
 svd_time = end-start;
-print '  >> forward + backward time %fs, forward error %s' % (svd_time, svd_error.data[0])
+print('  >> forward + backward time %fs, forward error %s' % (svd_time, svd_error.item()))
 
 
 # Forward pass with Denman-Beavers iterations (no backward)
-print 'Denman-Beavers iterations (%i iters) ' % (args.num_iters)
+print('Denman-Beavers iterations (%i iters) ' % (args.num_iters))
 start = tm.time()
 sA, error = sqrt_denman_beavers(A, args.num_iters, dtype=d);
 end = tm.time()
-print '  >> forward time %fs, error %s' % (end-start, error.data[0])
-print '  >> no backward via autograd'
+print('  >> forward time %fs, error %s' % (end-start, error.item()))
+print('  >> no backward via autograd')
 
 # Forward pass with Newton-Schulz (autograd version)
 # Time: O(Tn^2), Space: O(Tn^2), with T iterations
-print 'Newton-Schulz iterations (%i iters) ' % (args.num_iters)
+print('Newton-Schulz iterations (%i iters) ' % (args.num_iters))
 start = tm.time()
 sA, error = sqrt_newton_schulz_autograd(A, args.num_iters, dtype=d);
 end = tm.time()
 iter_time = end-start;
-print '  >> forward: time %fs, error %s' % (end-start, error.data[0])
+print('  >> forward: time %fs, error %s' % (end-start, error.item()))
 
 # Backward pass with autograd
 start = tm.time()
@@ -170,17 +170,17 @@ sA.backward(dldz)
 end = tm.time()
 iter_time += end-start
 backward_error = svd_grad.dist(A.grad.data)
-print '  >> backward via autograd: time %fs, error %f' % (end-start, backward_error)
-print '  >> speedup over SVD: %.1fx' %(svd_time / iter_time)
+print('  >> backward via autograd: time %fs, error %f' % (end-start, backward_error))
+print('  >> speedup over SVD: %.1fx' %(svd_time / iter_time))
 
 # Forward pass with Newton-Schulz
 # Time: O(Tn^2), Space: O(n^2), with T iterations
-print 'Newton-Schulz iterations (foward + backward) (%i iters) ' % (args.num_iters)
+print('Newton-Schulz iterations (foward + backward) (%i iters) ' % (args.num_iters))
 start = tm.time()
 sA, error = sqrt_newton_schulz(A.data, args.num_iters, dtype=d);
 end = tm.time()
 iter_time = end-start
-print '  >> forward: time %fs, error %s' % (end-start, error)
+print('  >> forward: time %fs, error %s' % (end-start, error))
 
 # Backward pass with Newton-Schulz
 start = tm.time()
@@ -188,5 +188,5 @@ dlda = lyap_newton_schulz(sA, dldz.data, args.num_iters, dtype=d)
 end = tm.time()
 iter_time += end-start
 backward_error = svd_grad.dist(dlda)
-print '  >> backward: time %fs, error %f ' % (end-start, backward_error)
-print '  >> speedup over SVD: %.1fx' %(svd_time / iter_time)
+print('  >> backward: time %fs, error %f ' % (end-start, backward_error))
+print('  >> speedup over SVD: %.1fx' %(svd_time / iter_time))
